@@ -17,7 +17,7 @@ let connected = false;
 async function connectDB() {
   if (connected) return client;
 
-  await client.connect(none);
+  await client.connect();
   await client.db("admin").command({ ping: 1 });
   console.log("Pinged your deployment. You successfully connected to MongoDB!");
   connected = true;
