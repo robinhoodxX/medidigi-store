@@ -21,7 +21,7 @@ export default function LoginPage() {
         localStorage.setItem('token', data.token);
 
         // alert('Logged in!'); <--- Remove this
-        router.push('/signup');      // <--- 3. Redirect to Homepage
+        router.push('/homepage');      // <--- 3. Redirect to Homepage
       } else {
         alert(data.error || 'Login failed');
       }
