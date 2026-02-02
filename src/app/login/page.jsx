@@ -1,21 +1,33 @@
 'use client'; // Required for MUI and state
 import { useState } from 'react';
 import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
   const [form, setForm] = useState({ email: '', password: '' });
+  const router = useRouter();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const res = await fetch('http://localhost:5000/api/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(form),
-    });
-    const data = await res.json();
-    if (data.token) {
-      localStorage.setItem('token', data.token); // Save login session
-      alert('Logged in!');
+    try {
+      const res = await fetch('http://localhost:5000/api/auth/login', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(form),
+      });
+      const data = await res.json();
+
+      if (res.ok && data.token) { // Check if request was successful
+        localStorage.setItem('token', data.token);
+
+        // alert('Logged in!'); <--- Remove this
+        router.push('/signup');      // <--- 3. Redirect to Homepage
+      } else {
+        alert(data.error || 'Login failed');
+      }
+    } catch (error) {
+      console.error('Login Error:', error);
+      alert('Something went wrong.');
     }
   };
 
