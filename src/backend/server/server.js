@@ -30,7 +30,7 @@ app.get('/api/drugs', async (req, res) => {
   try {
     // 1. Get query parameters (set defaults)
     const page = parseInt(req.query.page) || 1;
-    const limit = parseInt(req.query.limit) || 2000;
+    const limit = parseInt(req.query.limit) || 20;
     const search = req.query.search || "";
 
     // 2. Build Search Query
@@ -38,7 +38,8 @@ app.get('/api/drugs', async (req, res) => {
     const query = {
       $or: [
         { "Drug Name": { $regex: search, $options: "i" } },
-        { Category: { $regex: search, $options: "i" } }
+        { Category: { $regex: search, $options: "i" } },
+        { "Alias name": { $regex: search, $options: "i" } }
       ]
     };
 

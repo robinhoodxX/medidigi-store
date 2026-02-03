@@ -81,12 +81,11 @@ export default function HomePage() {
     fetchDrugs();
   }, [page, rowsPerPage, search]); // Re-run when these change
 
-  const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
 
   // Filter drugs based on search
   const filteredDrugs = mockDrugs.filter((drug) =>
-    drug.name.toLowerCase().includes(searchTerm.toLowerCase()),
+    drug.name.toLowerCase().includes(search.toLowerCase()),
   );
 
   const handleAddToCart = () => {
@@ -142,8 +141,8 @@ export default function HomePage() {
             fullWidth
             variant="outlined"
             placeholder="Search for Panadol, Brufen..."
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
+            value={search}
+            onChange={(e) => { setSearch(e.target.value); setPage(0); }}
             sx={{ bgcolor: "white", borderRadius: 1 }}
             InputProps={{
               startAdornment: (
@@ -157,95 +156,8 @@ export default function HomePage() {
       </Box>
 
       {/* 3. PRODUCT GRID DASHBOARD */}
-      <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Typography variant="h5" sx={{ mb: 3, fontWeight: "medium" }}>
-          Available Medicines
-        </Typography>
-
-        <Grid container spacing={3}>
-          {filteredDrugs.length > 0 ? (
-            filteredDrugs.map((drug) => (
-              <Grid item key={drug.id} xs={12} sm={6} md={4}>
-                <Card
-                  sx={{
-                    height: "100%",
-                    display: "flex",
-                    flexDirection: "column",
-                    boxShadow: 3,
-                  }}
-                >
-                  <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography
-                      gutterBottom
-                      variant="h6"
-                      component="div"
-                      color="primary"
-                    >
-                      {drug.name}
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Category: <strong>{drug.category}</strong>
-                    </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      Dosage: {drug.dose}
-                    </Typography>
-                    <Typography variant="h6" sx={{ mt: 2, color: "green" }}>
-                      Rs. {drug.price}
-                    </Typography>
-                  </CardContent>
-                  <CardActions
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      alignItems: "flex-end",
-                      gap: 1,
-                      mb: 2,
-                      px: 2,
-                    }}
-                  >
-                    <Button
-                      size="small"
-                      variant="contained"
-                      fullWidth
-                      onClick={handleAddToCart}
-                    >
-                      Add to Cart
-                    </Button>
-                    <Button
-                      size="small"
-                      variant="contained"
-                      fullWidth
-                      onClick={handleAddToCart}
-                      sx={{
-                        bgcolor: "#fa6060",
-                        m: 0,
-                        ml: 0,
-                      }}
-                    >
-                      Details
-                    </Button>
-                  </CardActions>
-                </Card>
-              </Grid>
-            ))
-          ) : (
-            <Container sx={{ textAlign: "center", mt: 4 }}>
-              <Typography variant="h6" color="text.secondary">
-                No medicines found matching "{searchTerm}"
-              </Typography>
-            </Container>
-          )}
-        </Grid>
-      </Container>
 
       <Box sx={{ p: 3 }}>
-        <TextField
-          fullWidth
-          label="Search Drugs..."
-          variant="outlined"
-          onChange={(e) => { setSearch(e.target.value); setPage(0); }}
-          sx={{ mb: 2 }}
-        />
 
         <TableContainer component={Paper}>
           <Table>
