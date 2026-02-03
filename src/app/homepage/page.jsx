@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   AppBar,
   Toolbar,
@@ -16,7 +16,10 @@ import {
   InputAdornment,
   IconButton,
   Badge,
+  Table, TableBody, TableCell, TableContainer, TableHead,
+  TableRow, Paper, TablePagination,
 } from "@mui/material";
+import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
@@ -56,6 +59,28 @@ const mockDrugs = [
 ];
 
 export default function HomePage() {
+
+  const [drugs, setDrugs] = useState([]);
+  const [page, setPage] = useState(0); // MUI uses 0-based index
+  const [rowsPerPage, setRowsPerPage] = useState(20);
+  const [search, setSearch] = useState("");
+  const [totalCount, setTotalCount] = useState(0);
+
+  useEffect(() => {
+    const fetchDrugs = async () => {
+      const response = await axios.get(`http://localhost:5000/api/drugs`, {
+        params: {
+          page: page + 1, // API expects 1-based index
+          limit: rowsPerPage,
+          search: search
+        }
+      });
+      setDrugs(response.data.drugs);
+      setTotalCount(response.data.totalDrugs);
+    };
+    fetchDrugs();
+  }, [page, rowsPerPage, search]); // Re-run when these change
+
   const [searchTerm, setSearchTerm] = useState("");
   const [cartCount, setCartCount] = useState(0);
 
@@ -212,6 +237,54 @@ export default function HomePage() {
           )}
         </Grid>
       </Container>
+
+      <Box sx={{ p: 3 }}>
+        <TextField
+          fullWidth
+          label="Search Drugs..."
+          variant="outlined"
+          onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+          sx={{ mb: 2 }}
+        />
+
+        <TableContainer component={Paper}>
+          <Table>
+            <TableHead>
+              <TableRow sx={{ bgcolor: '#eee' }}>
+                <TableCell><strong>Drug Name</strong></TableCell>
+                <TableCell><strong>Alias</strong></TableCell>
+                <TableCell><strong>Category</strong></TableCell>
+                <TableCell><strong>Dosage Form</strong></TableCell>
+                <TableCell><strong>Effect</strong></TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {drugs.map((drug) => (
+                <TableRow key={drug._id}>
+                  <TableCell>{drug["Drug Name"]}</TableCell>
+                  <TableCell>{drug["Alias name"]}</TableCell>
+                  <TableCell>{drug.Category}</TableCell>
+                  <TableCell>{drug["Dosage Form"]}</TableCell>
+                  <TableCell>{drug["Effect Description"]}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+
+          <TablePagination
+            rowsPerPageOptions={[20, 50, 100]}
+            component="div"
+            count={totalCount}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={(e, newPage) => setPage(newPage)}
+            onRowsPerPageChange={(e) => {
+              setRowsPerPage(parseInt(e.target.value, 10));
+              setPage(0);
+            }}
+          />
+        </TableContainer>
+      </Box>
     </Box>
   );
 }
