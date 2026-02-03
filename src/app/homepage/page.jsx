@@ -1,23 +1,58 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
+import { useState } from "react";
 import {
-  AppBar, Toolbar, Typography, Container, TextField,
-  Grid, Card, CardContent, CardActions, Button,
-  Box, InputAdornment, IconButton, Badge
-} from '@mui/material';
-import SearchIcon from '@mui/icons-material/Search';
-import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
-import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
+  AppBar,
+  Toolbar,
+  Typography,
+  Container,
+  TextField,
+  Grid,
+  Card,
+  CardContent,
+  CardActions,
+  Button,
+  Box,
+  InputAdornment,
+  IconButton,
+  Badge,
+} from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 
 // --- MOCK DATA  ---
 const mockDrugs = [
-  { id: 1, name: "Panadol Extra", category: "Pain Relief", price: 50, dose: "500mg" },
+  {
+    id: 1,
+    name: "Panadol Extra",
+    category: "Pain Relief",
+    price: 50,
+    dose: "500mg",
+  },
   { id: 2, name: "Amoxil", category: "Antibiotic", price: 120, dose: "250mg" },
-  { id: 3, name: "Brufen", category: "Anti-inflammatory", price: 85, dose: "400mg" },
-  { id: 4, name: "Disprin", category: "Blood Thinner", price: 20, dose: "300mg" },
+  {
+    id: 3,
+    name: "Brufen",
+    category: "Anti-inflammatory",
+    price: 85,
+    dose: "400mg",
+  },
+  {
+    id: 4,
+    name: "Disprin",
+    category: "Blood Thinner",
+    price: 20,
+    dose: "300mg",
+  },
   { id: 5, name: "Flagyl", category: "Antibiotic", price: 60, dose: "400mg" },
-  { id: 6, name: "Augmentin", category: "Antibiotic", price: 350, dose: "625mg" },
+  {
+    id: 6,
+    name: "Augmentin",
+    category: "Antibiotic",
+    price: 350,
+    dose: "625mg",
+  },
 ];
 
 export default function HomePage() {
@@ -26,7 +61,7 @@ export default function HomePage() {
 
   // Filter drugs based on search
   const filteredDrugs = mockDrugs.filter((drug) =>
-    drug.name.toLowerCase().includes(searchTerm.toLowerCase())
+    drug.name.toLowerCase().includes(searchTerm.toLowerCase()),
   );
 
   const handleAddToCart = () => {
@@ -35,12 +70,15 @@ export default function HomePage() {
   };
 
   return (
-    <Box sx={{ flexGrow: 1, bgcolor: '#f5f5f5', minHeight: '100vh' }}>
-
+    <Box sx={{ flexGrow: 1, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
       {/* 1. NAVBAR */}
-      <AppBar position="static" sx={{ bgcolor: '#1976d2' }}>
+      <AppBar position="static" sx={{ bgcolor: "#1976d2" }}>
         <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
+          <Typography
+            variant="h6"
+            component="div"
+            sx={{ flexGrow: 1, fontWeight: "bold" }}
+          >
             MediDigi Store
           </Typography>
           <IconButton color="inherit">
@@ -48,19 +86,27 @@ export default function HomePage() {
               <ShoppingCartIcon />
             </Badge>
           </IconButton>
-          <Button color="inherit" href="/login">Login</Button>
+          <Button color="inherit" href="/login">
+            Login
+          </Button>
         </Toolbar>
       </AppBar>
 
       {/* 2. HERO / SEARCH SECTION */}
-      <Box sx={{
-        bgcolor: '#e3f2fd',
-        py: 8,
-        textAlign: 'center',
-        mb: 4
-      }}>
+      <Box
+        sx={{
+          bgcolor: "#e3f2fd",
+          py: 8,
+          textAlign: "center",
+          mb: 4,
+        }}
+      >
         <Container maxWidth="md">
-          <Typography variant="h3" gutterBottom sx={{ color: '#0d47a1', fontWeight: 'bold' }}>
+          <Typography
+            variant="h3"
+            gutterBottom
+            sx={{ color: "#0d47a1", fontWeight: "bold" }}
+          >
             Find Your Medicine
           </Typography>
           <Typography variant="h6" color="text.secondary" paragraph>
@@ -73,7 +119,7 @@ export default function HomePage() {
             placeholder="Search for Panadol, Brufen..."
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
-            sx={{ bgcolor: 'white', borderRadius: 1 }}
+            sx={{ bgcolor: "white", borderRadius: 1 }}
             InputProps={{
               startAdornment: (
                 <InputAdornment position="start">
@@ -87,7 +133,7 @@ export default function HomePage() {
 
       {/* 3. PRODUCT GRID DASHBOARD */}
       <Container maxWidth="lg" sx={{ mb: 8 }}>
-        <Typography variant="h5" sx={{ mb: 3, fontWeight: 'medium' }}>
+        <Typography variant="h5" sx={{ mb: 3, fontWeight: "medium" }}>
           Available Medicines
         </Typography>
 
@@ -95,9 +141,21 @@ export default function HomePage() {
           {filteredDrugs.length > 0 ? (
             filteredDrugs.map((drug) => (
               <Grid item key={drug.id} xs={12} sm={6} md={4}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', boxShadow: 3 }}>
+                <Card
+                  sx={{
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    boxShadow: 3,
+                  }}
+                >
                   <CardContent sx={{ flexGrow: 1 }}>
-                    <Typography gutterBottom variant="h6" component="div" color="primary">
+                    <Typography
+                      gutterBottom
+                      variant="h6"
+                      component="div"
+                      color="primary"
+                    >
                       {drug.name}
                     </Typography>
                     <Typography variant="body2" color="text.secondary">
@@ -106,11 +164,20 @@ export default function HomePage() {
                     <Typography variant="body2" color="text.secondary">
                       Dosage: {drug.dose}
                     </Typography>
-                    <Typography variant="h6" sx={{ mt: 2, color: 'green' }}>
+                    <Typography variant="h6" sx={{ mt: 2, color: "green" }}>
                       Rs. {drug.price}
                     </Typography>
                   </CardContent>
-                  <CardActions sx={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 1, mb: 2, px: 2 }}>
+                  <CardActions
+                    sx={{
+                      display: "flex",
+                      flexDirection: "column",
+                      alignItems: "flex-end",
+                      gap: 1,
+                      mb: 2,
+                      px: 2,
+                    }}
+                  >
                     <Button
                       size="small"
                       variant="contained"
@@ -124,7 +191,11 @@ export default function HomePage() {
                       variant="contained"
                       fullWidth
                       onClick={handleAddToCart}
-                      sx={{ bgcolor: '#fa6060' }}
+                      sx={{
+                        bgcolor: "#fa6060",
+                        m: 0,
+                        ml: 0,
+                      }}
                     >
                       Details
                     </Button>
@@ -133,7 +204,7 @@ export default function HomePage() {
               </Grid>
             ))
           ) : (
-            <Container sx={{ textAlign: 'center', mt: 4 }}>
+            <Container sx={{ textAlign: "center", mt: 4 }}>
               <Typography variant="h6" color="text.secondary">
                 No medicines found matching "{searchTerm}"
               </Typography>
