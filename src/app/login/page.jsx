@@ -1,6 +1,6 @@
 'use client'; // Required for MUI and state
 import { useState } from 'react';
-import { TextField, Button, Container, Typography, Box } from '@mui/material';
+import { TextField, Button, Container, Typography, Box, Paper, Link } from '@mui/material';
 import { useRouter } from 'next/navigation';
 
 export default function LoginPage() {
@@ -32,22 +32,29 @@ export default function LoginPage() {
   };
 
   return (
-    <Container maxWidth="xs" sx={{ backgroundColor: "white", p: 2, mt: 10, borderRadius: 2, boxShadow: 3 }}>
+    <Container maxWidth="xs" sx={{ p: 2, mt: 10, borderRadius: 2 }}>
       <Box sx={{ mt: 8, display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <Typography variant="h4">Login</Typography>
-        <form onSubmit={handleSubmit}>
-          <TextField
-            margin="normal" fullWidth label="Email"
-            onChange={(e) => setForm({ ...form, email: e.target.value })}
-          />
-          <TextField
-            margin="normal" fullWidth label="Password" type="password"
-            onChange={(e) => setForm({ ...form, password: e.target.value })}
-          />
-          <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2, backgroundColor: '#f9f9f9', border: '1px solid #1f1f1f' }}>
+          <Typography variant="h5" align="center">
             Login
-          </Button>
-        </form>
+          </Typography>
+          <form onSubmit={handleSubmit}>
+            <TextField
+              margin="normal" fullWidth label="Email"
+              onChange={(e) => setForm({ ...form, email: e.target.value })}
+            />
+            <TextField
+              margin="normal" fullWidth label="Password" type="password"
+              onChange={(e) => setForm({ ...form, password: e.target.value })}
+            />
+            <Button type="submit" fullWidth variant="contained" sx={{ mt: 3 }}>
+              Login
+            </Button>
+            <Box variant="body2" align="center" sx={{ mt: 3 }} component="div">
+              Don't have an account? <Link href="/signup">Sign Up</Link>
+            </Box>
+          </form>
+        </Paper>
       </Box>
     </Container>
   );

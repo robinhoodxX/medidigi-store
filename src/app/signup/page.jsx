@@ -32,8 +32,8 @@ export default function SignupPage() {
   return (
     <Container maxWidth="xs">
       <Box sx={{ mt: 8 }}>
-        <Paper elevation={3} sx={{ p: 4, borderRadius: 2 }}>
-          <Typography variant="h5" align="center" gutterBottom>
+        <Paper elevation={3} sx={{ p: 4, borderRadius: 2, backgroundColor: '#f9f9f9', border: '1px solid #1f1f1f' }}>
+          <Typography variant="h5" align="center">
             Create Account
           </Typography>
           <form onSubmit={handleSubmit}>
@@ -52,9 +52,9 @@ export default function SignupPage() {
             <Button type="submit" fullWidth variant="contained" color="primary" sx={{ mt: 3, mb: 2 }}>
               Sign Up
             </Button>
-            <Typography variant="body2" align="center">
+            <Box variant="body2" align="center" component="div">
               Already have an account? <Link href="/login">Log In</Link>
-            </Typography>
+            </Box>
           </form>
         </Paper>
       </Box>

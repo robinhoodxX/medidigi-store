@@ -10,7 +10,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import LocalPharmacyIcon from '@mui/icons-material/LocalPharmacy';
 
-// --- MOCK DATA (We will replace this with your Database later) ---
+// --- MOCK DATA  ---
 const mockDrugs = [
   { id: 1, name: "Panadol Extra", category: "Pain Relief", price: 50, dose: "500mg" },
   { id: 2, name: "Amoxil", category: "Antibiotic", price: 120, dose: "250mg" },
@@ -40,7 +40,6 @@ export default function HomePage() {
       {/* 1. NAVBAR */}
       <AppBar position="static" sx={{ bgcolor: '#1976d2' }}>
         <Toolbar>
-          <LocalPharmacyIcon sx={{ mr: 2 }} />
           <Typography variant="h6" component="div" sx={{ flexGrow: 1, fontWeight: 'bold' }}>
             MediDigi Store
           </Typography>
@@ -111,7 +110,7 @@ export default function HomePage() {
                       Rs. {drug.price}
                     </Typography>
                   </CardContent>
-                  <CardActions>
+                  <CardActions sx={{ display: "flex", flexDirection: "column", justifyContent: "center", gap: 1, mb: 2, px: 2 }}>
                     <Button
                       size="small"
                       variant="contained"
@@ -119,6 +118,15 @@ export default function HomePage() {
                       onClick={handleAddToCart}
                     >
                       Add to Cart
+                    </Button>
+                    <Button
+                      size="small"
+                      variant="contained"
+                      fullWidth
+                      onClick={handleAddToCart}
+                      sx={{ bgcolor: '#fa6060' }}
+                    >
+                      Details
                     </Button>
                   </CardActions>
                 </Card>
