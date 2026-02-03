@@ -24,39 +24,6 @@ import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 
-// --- MOCK DATA  ---
-const mockDrugs = [
-  {
-    id: 1,
-    name: "Panadol Extra",
-    category: "Pain Relief",
-    price: 50,
-    dose: "500mg",
-  },
-  { id: 2, name: "Amoxil", category: "Antibiotic", price: 120, dose: "250mg" },
-  {
-    id: 3,
-    name: "Brufen",
-    category: "Anti-inflammatory",
-    price: 85,
-    dose: "400mg",
-  },
-  {
-    id: 4,
-    name: "Disprin",
-    category: "Blood Thinner",
-    price: 20,
-    dose: "300mg",
-  },
-  { id: 5, name: "Flagyl", category: "Antibiotic", price: 60, dose: "400mg" },
-  {
-    id: 6,
-    name: "Augmentin",
-    category: "Antibiotic",
-    price: 350,
-    dose: "625mg",
-  },
-];
 
 export default function HomePage() {
 
@@ -64,7 +31,19 @@ export default function HomePage() {
   const [page, setPage] = useState(0); // MUI uses 0-based index
   const [rowsPerPage, setRowsPerPage] = useState(20);
   const [search, setSearch] = useState("");
+  const [searchInput, setSearchInput] = useState("");
   const [totalCount, setTotalCount] = useState(0);
+  const [cartCount, setCartCount] = useState(0);
+
+  // Debounce search input
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setSearch(searchInput);
+      setPage(0); // Reset to first page when search changes
+    }, 500); // Wait 500ms after user stops typing
+
+    return () => clearTimeout(timer);
+  }, [searchInput]);
 
   useEffect(() => {
     const fetchDrugs = async () => {
@@ -80,18 +59,6 @@ export default function HomePage() {
     };
     fetchDrugs();
   }, [page, rowsPerPage, search]); // Re-run when these change
-
-  const [cartCount, setCartCount] = useState(0);
-
-  // Filter drugs based on search
-  const filteredDrugs = mockDrugs.filter((drug) =>
-    drug.name.toLowerCase().includes(search.toLowerCase()),
-  );
-
-  const handleAddToCart = () => {
-    setCartCount(cartCount + 1);
-    // Logic to add to actual cart database goes here
-  };
 
   return (
     <Box sx={{ flexGrow: 1, bgcolor: "#f5f5f5", minHeight: "100vh" }}>
@@ -141,8 +108,8 @@ export default function HomePage() {
             fullWidth
             variant="outlined"
             placeholder="Search for Panadol, Brufen..."
-            value={search}
-            onChange={(e) => { setSearch(e.target.value); setPage(0); }}
+            value={searchInput}
+            onChange={(e) => setSearchInput(e.target.value)}
             sx={{ bgcolor: "white", borderRadius: 1 }}
             InputProps={{
               startAdornment: (
