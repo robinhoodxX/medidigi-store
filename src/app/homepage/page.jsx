@@ -83,6 +83,8 @@ export default function HomePage() {
         </Toolbar>
       </AppBar>
 
+      
+
       {/* 2. HERO / SEARCH SECTION */}
       <Box
         sx={{
