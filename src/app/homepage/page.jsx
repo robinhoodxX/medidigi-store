@@ -100,7 +100,7 @@ export default function HomePage() {
           >
             Find Your Medicine
           </Typography>
-          <Typography variant="h6" color="text.secondary" paragraph>
+          <Typography variant="h6" color="text.secondary">
             Search for drugs, supplements, and healthcare products instantly.
           </Typography>
 
