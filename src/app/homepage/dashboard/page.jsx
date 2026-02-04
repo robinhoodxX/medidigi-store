@@ -1,12 +1,8 @@
 "use client";
 
 import React from 'react';
-import { useState, useEffect } from "react";
-import axios from "axios";
 import {
-  AppBar, Toolbar, Typography, IconButton, Button, Box, Container, List, ListItem, ListItemButton, Table, TableBody, TableCell, TableContainer, TableHead,
-  TableRow, Paper, TablePagination, TextField, InputAdornment} from '@mui/material';
-import SearchIcon from "@mui/icons-material/Search";
+  AppBar, Toolbar, Typography, IconButton, Button, Box, Container} from '@mui/material';
 import LeftMenuDash from './components/leftmenudash';
 import DrugSearchingForum from './components/drugsearchingforum';
 
