@@ -1,7 +1,50 @@
+"use client";
+
 import React from 'react';
-import { AppBar, Toolbar, Typography, IconButton, Button, Box, Container, List, ListItem, ListItemButton } from '@mui/material';
+import { useState, useEffect } from "react";
+import axios from "axios";
+import {
+  AppBar, Toolbar, Typography, IconButton, Button, Box, Container, List, ListItem, ListItemButton, Table, TableBody, TableCell, TableContainer, TableHead,
+  TableRow, Paper, TablePagination, TextField, InputAdornment} from '@mui/material';
+import SearchIcon from "@mui/icons-material/Search";
 
 function dashboard() {
+
+
+    const [drugs, setDrugs] = useState([]);
+    const [page, setPage] = useState(0); // MUI uses 0-based index
+    const [rowsPerPage, setRowsPerPage] = useState(20);
+    const [search, setSearch] = useState("");
+    const [searchInput, setSearchInput] = useState("");
+    const [totalCount, setTotalCount] = useState(0);
+    const [cartCount, setCartCount] = useState(0);
+
+    // Debounce search input
+    useEffect(() => {
+      const timer = setTimeout(() => {
+        setSearch(searchInput);
+        setPage(0); // Reset to first page when search changes
+      }, 500); // Wait 500ms after user stops typing
+  
+      return () => clearTimeout(timer);
+    }, [searchInput]);
+  
+    useEffect(() => {
+      const fetchDrugs = async () => {
+        const response = await axios.get(`http://localhost:5000/api/drugs`, {
+          params: {
+            page: page + 1, // API expects 1-based index
+            limit: rowsPerPage,
+            search: search
+          }
+        });
+        setDrugs(response.data.drugs);
+        setTotalCount(response.data.totalDrugs);
+      };
+      fetchDrugs();
+    }, [page, rowsPerPage, search]); // Re-run when these change
+
+
   return (
     <Box>
       {/* 1. NAVBAR */}
@@ -22,7 +65,7 @@ function dashboard() {
         </Toolbar>
       </AppBar>
       <Container disableGutters sx={{ display: 'flex', flexDirection: 'row'}}>
-        <Box sx={{ bgcolor: '#eaeaea' }}>
+        <Box sx={{ bgcolor: '#eaeaea', paddingLeft: 2, paddingRight: 2 }}>
           <List>
             <ListItem disablePadding><ListItemButton>Dashboard</ListItemButton></ListItem>
             <ListItem disablePadding><ListItemButton>Orders</ListItemButton></ListItem>
@@ -32,8 +75,88 @@ function dashboard() {
             <ListItem disablePadding><ListItemButton>Integrations</ListItemButton></ListItem>
           </List>
         </Box>
-        <Box sx={{ bgcolor: '#e3f2fd', width: '100%' }}>
-          Additional Content
+        <Box sx={{ width: '100%' }}>
+
+          {/* 2. HERO / SEARCH SECTION */}
+                <Box
+                  sx={{
+                    bgcolor: "#e3f2fd",
+                    py: 8,
+                    textAlign: "center",
+                    mb: 4,
+                  }}
+                >
+                  <Container maxWidth="md">
+                    <Typography
+                      variant="h3"
+                      gutterBottom
+                      sx={{ color: "#0d47a1", fontWeight: "bold" }}
+                    >
+                      Find Your Medicine
+                    </Typography>
+                    <Typography variant="h6" color="text.secondary">
+                      Search for drugs, supplements, and healthcare products instantly.
+                    </Typography>
+          
+                    <TextField
+                      fullWidth
+                      variant="outlined"
+                      placeholder="Search for Panadol, Brufen..."
+                      value={searchInput}
+                      onChange={(e) => setSearchInput(e.target.value)}
+                      sx={{ bgcolor: "white", borderRadius: 1 }}
+                      InputProps={{
+                        startAdornment: (
+                          <InputAdornment position="start">
+                            <SearchIcon color="action" />
+                          </InputAdornment>
+                        ),
+                      }}
+                    />
+                  </Container>
+                </Box>
+          {/* 3. PRODUCT GRID DASHBOARD */}
+
+          <Box sx={{ p: 3 }}>
+
+            <TableContainer component={Paper}>
+              <Table>
+                <TableHead>
+                  <TableRow sx={{ bgcolor: '#eee' }}>
+                    <TableCell><strong>Drug Name</strong></TableCell>
+                    <TableCell><strong>Alias</strong></TableCell>
+                    <TableCell><strong>Category</strong></TableCell>
+                    <TableCell><strong>Dosage Form</strong></TableCell>
+                    <TableCell><strong>Effect</strong></TableCell>
+                  </TableRow>
+                </TableHead>
+                <TableBody>
+                  {drugs.map((drug) => (
+                    <TableRow key={drug._id}>
+                      <TableCell>{drug["Drug Name"]}</TableCell>
+                      <TableCell>{drug["Alias name"]}</TableCell>
+                      <TableCell>{drug.Category}</TableCell>
+                      <TableCell>{drug["Dosage Form"]}</TableCell>
+                      <TableCell>{drug["Effect Description"]}</TableCell>
+                    </TableRow>
+                  ))}
+                </TableBody>
+              </Table>
+
+              <TablePagination
+                rowsPerPageOptions={[20, 50, 100]}
+                component="div"
+                count={totalCount}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={(e, newPage) => setPage(newPage)}
+                onRowsPerPageChange={(e) => {
+                  setRowsPerPage(parseInt(e.target.value, 10));
+                  setPage(0);
+                }}
+              />
+            </TableContainer>
+          </Box>
         </Box>
       </Container>
     </Box>

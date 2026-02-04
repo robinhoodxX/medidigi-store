@@ -22,7 +22,6 @@ import {
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import LocalPharmacyIcon from "@mui/icons-material/LocalPharmacy";
 
 
 export default function HomePage() {
