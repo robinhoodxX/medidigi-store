@@ -6,6 +6,7 @@ import {
 import LeftMenuDash from './components/leftmenudash';
 import DrugSearchingForum from './components/drugsearchingforum';
 
+
 function dashboard() {
 
 
@@ -30,9 +31,6 @@ function dashboard() {
       </AppBar>
       <Container disableGutters sx={{ display: 'flex', flexDirection: 'row'}}>
         <LeftMenuDash />
-        <Box sx={{ width: '100%' }}>
-          <DrugSearchingForum />
-        </Box>
       </Container>
     </Box>
 

@@ -1,17 +1,94 @@
 import React from 'react';
-import { Box, List, ListItem, ListItemButton } from '@mui/material';
+import { Box, List, ListItem, ListItemButton, Typography } from '@mui/material';
+import Tabs from '@mui/material/Tabs';
+import Tab from '@mui/material/Tab';
+import PropTypes from 'prop-types';
+import DrugSearchingForum from './drugsearchingforum';
 
-export default function leftmenudash () {
-    return (
-      <Box sx={{ bgcolor: '#eaeaea', paddingLeft: 2, paddingRight: 2 }}>
-        <List>
-          <ListItem disablePadding><ListItemButton>Dashboard</ListItemButton></ListItem>
-          <ListItem disablePadding><ListItemButton>Orders</ListItemButton></ListItem>
-          <ListItem disablePadding><ListItemButton>Products</ListItemButton></ListItem>
-          <ListItem disablePadding><ListItemButton>Customers</ListItemButton></ListItem>
-          <ListItem disablePadding><ListItemButton>Reports</ListItemButton></ListItem>
-          <ListItem disablePadding><ListItemButton>Integrations</ListItemButton></ListItem>
-        </List>
+function TabPanel(props) {
+  const { children, value, index, ...other } = props;
+
+  return (
+    <div
+      role="tabpanel"
+      hidden={value !== index}
+      id={`vertical-tabpanel-${index}`}
+      aria-labelledby={`vertical-tab-${index}`}
+      {...other}
+    >
+      {value === index && (
+        <Box>
+          <Typography component="div">{children}</Typography>
+        </Box>
+      )}
+    </div>
+  );
+}
+
+TabPanel.propTypes = {
+  children: PropTypes.node,
+  index: PropTypes.number.isRequired,
+  value: PropTypes.number.isRequired,
+};
+
+function a11yProps(index) {
+  return {
+    id: `vertical-tab-${index}`,
+    'aria-controls': `vertical-tabpanel-${index}`,
+  };
+}
+
+
+export default function leftmenudash() {
+
+  const [value, setValue] = React.useState(0);
+
+  const handleChange = (event, newValue) => {
+    setValue(newValue);
+  };
+
+  return (
+    <Box sx={{ width: '100%' }}>
+      <Box
+        sx={{ bgcolor: 'background.paper', display: 'flex' }}
+      >
+        <Tabs
+          orientation="vertical"
+          value={value}
+          onChange={handleChange}
+          aria-label="Vertical tabs example"
+          sx={{ overflow: 'unset', borderRight: 1, borderColor: 'divider', width: '400px' }}
+        >
+          <Tab label="Item One" {...a11yProps(0)} />
+          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Item Three" {...a11yProps(2)} />
+          <Tab label="Item Four" {...a11yProps(3)} />
+          <Tab label="Item Five" {...a11yProps(4)} />
+          <Tab label="Item Six" {...a11yProps(5)} />
+          <Tab label="Item Seven" {...a11yProps(6)} />
+        </Tabs>
+        <TabPanel value={value} index={0}>
+          <DrugSearchingForum />
+        </TabPanel>
+        <TabPanel value={value} index={1}>
+          Item Two
+        </TabPanel>
+        <TabPanel value={value} index={2}>
+          Item Three
+        </TabPanel>
+        <TabPanel value={value} index={3}>
+          Item Four
+        </TabPanel>
+        <TabPanel value={value} index={4}>
+          Item Five
+        </TabPanel>
+        <TabPanel value={value} index={5}>
+          Item Six
+        </TabPanel>
+        <TabPanel value={value} index={6}>
+          Item Seven
+        </TabPanel>
       </Box>
-    )
+    </Box>
+  )
 }
