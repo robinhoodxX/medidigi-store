@@ -59,8 +59,8 @@ export default function leftmenudash() {
           aria-label="Vertical tabs example"
           sx={{ overflow: 'unset', borderRight: 1, borderColor: 'divider', width: '400px' }}
         >
-          <Tab label="Item One" {...a11yProps(0)} />
-          <Tab label="Item Two" {...a11yProps(1)} />
+          <Tab label="Search" {...a11yProps(0)} />
+          <Tab label="Whistlist" {...a11yProps(1)} />
           <Tab label="Item Three" {...a11yProps(2)} />
           <Tab label="Item Four" {...a11yProps(3)} />
           <Tab label="Item Five" {...a11yProps(4)} />
