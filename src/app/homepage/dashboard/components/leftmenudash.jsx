@@ -48,16 +48,16 @@ export default function leftmenudash() {
   };
 
   return (
-    <Box sx={{ width: '100%' }}>
+    <Box sx={{ }}>
       <Box
-        sx={{ bgcolor: 'background.paper', display: 'flex' }}
+        sx={{ bgcolor: 'background.paper', display: 'flex', width: '100vw' }}
       >
         <Tabs
           orientation="vertical"
           value={value}
           onChange={handleChange}
           aria-label="Vertical tabs example"
-          sx={{ overflow: 'unset', borderRight: 1, borderColor: 'divider', width: '400px' }}
+          sx={{ overflow: 'unset', borderRight: 1, borderColor: 'divider', width: '300px' }}
         >
           <Tab label="Search" {...a11yProps(0)} />
           <Tab label="Whistlist" {...a11yProps(1)} />
@@ -67,27 +67,29 @@ export default function leftmenudash() {
           <Tab label="Item Six" {...a11yProps(5)} />
           <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
-        <TabPanel value={value} index={0}>
-          <DrugSearchingForum />
-        </TabPanel>
-        <TabPanel value={value} index={1}>
-          Item Two
-        </TabPanel>
-        <TabPanel value={value} index={2}>
-          Item Three
-        </TabPanel>
-        <TabPanel value={value} index={3}>
-          Item Four
-        </TabPanel>
-        <TabPanel value={value} index={4}>
-          Item Five
-        </TabPanel>
-        <TabPanel value={value} index={5}>
-          Item Six
-        </TabPanel>
-        <TabPanel value={value} index={6}>
-          Item Seven
-        </TabPanel>
+        <Box sx={{ width: '100%' }}>
+          <TabPanel value={value} index={0}>
+            <DrugSearchingForum />
+          </TabPanel>
+          <TabPanel value={value} index={1}>
+            Item Two
+          </TabPanel>
+          <TabPanel value={value} index={2}>
+            Item Three
+          </TabPanel>
+          <TabPanel value={value} index={3}>
+            Item Four
+          </TabPanel>
+          <TabPanel value={value} index={4}>
+            Item Five
+          </TabPanel>
+          <TabPanel value={value} index={5}>
+            Item Six
+          </TabPanel>
+          <TabPanel value={value} index={6}>
+            Item Seven
+          </TabPanel>
+        </Box>
       </Box>
     </Box>
   )
