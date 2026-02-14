@@ -63,7 +63,7 @@ export default function leftmenudash() {
           <Tab label="Whistlist" {...a11yProps(1)} />
           <Tab label="Custom" {...a11yProps(2)} />
           <Tab label="Profile" {...a11yProps(3)} />
-          <Tab label="Item Five" {...a11yProps(4)} />
+          <Tab label="Setting" {...a11yProps(4)} />
           <Tab label="Item Six" {...a11yProps(5)} />
           <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
