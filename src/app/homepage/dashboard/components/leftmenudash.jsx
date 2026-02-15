@@ -64,7 +64,7 @@ export default function leftmenudash() {
           <Tab label="Custom" {...a11yProps(2)} />
           <Tab label="Profile" {...a11yProps(3)} />
           <Tab label="Setting" {...a11yProps(4)} />
-          <Tab label="Item Six" {...a11yProps(5)} />
+          <Tab label="Log out" {...a11yProps(5)} />
           <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
         <Box sx={{ width: '100%' }}>
