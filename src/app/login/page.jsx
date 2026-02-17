@@ -19,6 +19,9 @@ export default function LoginPage() {
 
       if (res.ok && data.token) { // Check if request was successful
         localStorage.setItem('token', data.token);
+        if (data.userId) {
+          localStorage.setItem('userId', data.userId);
+        }
 
         // alert('Logged in!'); <--- Remove this
         router.push('/homepage');      // <--- 3. Redirect to Homepage

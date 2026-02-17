@@ -5,6 +5,9 @@ import {
   AppBar, Toolbar, Typography, IconButton, Button, Box, Container, List, ListItem, ListItemButton, Table, TableBody, TableCell, TableContainer, TableHead,
   TableRow, Paper, TablePagination, TextField, InputAdornment} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
+import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
+import FavoriteIcon from '@mui/icons-material/Favorite';
 
 export default function drugsearchingforum () {
 
@@ -15,6 +18,43 @@ export default function drugsearchingforum () {
   const [searchInput, setSearchInput] = useState("");
   const [totalCount, setTotalCount] = useState(0);
   const [cartCount, setCartCount] = useState(0);
+  const [wishlistIds, setWishlistIds] = useState([]);
+
+
+  const getGuestId = () => {
+    let guestId = localStorage.getItem('guestId');
+    if (!guestId) {
+      guestId = (crypto && crypto.randomUUID) ? crypto.randomUUID() : `guest-${Date.now()}`;
+      localStorage.setItem('guestId', guestId);
+    }
+    return guestId;
+  };
+
+  const handleWishlistToggle = async (drugId) => {
+    const guestId = getGuestId();
+
+    // 1. Update UI instantly (Optimistic Update)
+    if (wishlistIds.includes(drugId)) {
+      setWishlistIds(wishlistIds.filter(id => id !== drugId)); // Remove
+    } else {
+      setWishlistIds([...wishlistIds, drugId]); // Add
+    }
+
+    // 2. Tell the backend to save it
+    await axios.post('http://localhost:5000/api/wishlist/guest/toggle', { guestId, drugId });
+    window.dispatchEvent(new Event('wishlist-updated'));
+  };
+
+  // When the page loads, fetch the user's current wishlist from the backend
+  useEffect(() => {
+    const fetchGuestWishlist = async () => {
+      const guestId = getGuestId();
+      const res = await axios.get(`http://localhost:5000/api/wishlist/guest/${guestId}`);
+      // Store only the IDs so it's easy to check: wishlistIds.includes(drugId)
+      setWishlistIds(res.data.map(drug => drug._id));
+    };
+    fetchGuestWishlist();
+  }, []);
 
   // Debounce search input
   useEffect(() => {
@@ -37,6 +77,14 @@ export default function drugsearchingforum () {
       });
       setDrugs(response.data.drugs);
       setTotalCount(response.data.totalDrugs);
+      const guestId = getGuestId();
+      // Fetch wishlist IDs for the guest
+      const wishlistResponse = await axios.get(`http://localhost:5000/api/wishlist/guest/ids`, {
+        params: {
+          guestId
+        }
+      });
+      setWishlistIds(wishlistResponse.data.wishlistIds);
     };
     fetchDrugs();
   }, [page, rowsPerPage, search]); // Re-run when these change
@@ -92,6 +140,7 @@ export default function drugsearchingforum () {
                   <TableCell><strong>Category</strong></TableCell>
                   <TableCell><strong>Dosage Form</strong></TableCell>
                   <TableCell><strong>Effect</strong></TableCell>
+                  <TableCell><strong>Wishlist</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -102,6 +151,15 @@ export default function drugsearchingforum () {
                     <TableCell>{drug.Category}</TableCell>
                     <TableCell>{drug["Dosage Form"]}</TableCell>
                     <TableCell>{drug["Effect Description"]}</TableCell>
+                    <TableCell>
+                      <IconButton onClick={() => handleWishlistToggle(drug._id)}>
+                        {wishlistIds.includes(drug._id) ? (
+                          <FavoriteIcon sx={{ color: 'red' }} />
+                        ) : (
+                          <FavoriteBorderIcon />
+                        )}
+                      </IconButton>
+                    </TableCell>
                   </TableRow>
                 ))}
               </TableBody>

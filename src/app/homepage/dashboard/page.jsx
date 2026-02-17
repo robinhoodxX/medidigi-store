@@ -4,7 +4,7 @@ import React from 'react';
 import {
   AppBar, Toolbar, Typography, IconButton, Button, Box, Container} from '@mui/material';
 import LeftMenuDash from './components/leftmenudash';
-import DrugSearchingForum from './components/drugsearchingforum';
+import HomeFilledIcon from '@mui/icons-material/HomeFilled';
 
 
 function dashboard() {
@@ -22,7 +22,8 @@ function dashboard() {
           >
             MediDigi Store
           </Typography>
-          <IconButton color="inherit">
+          <IconButton color="inherit" href="/homepage">
+            <HomeFilledIcon />
           </IconButton>
           <Button color="inherit" href="/login">
             Login

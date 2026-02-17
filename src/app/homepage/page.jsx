@@ -19,6 +19,7 @@ import {
   Table, TableBody, TableCell, TableContainer, TableHead,
   TableRow, Paper, TablePagination,
 } from "@mui/material";
+import DashboardIcon from '@mui/icons-material/Dashboard';
 import axios from "axios";
 import SearchIcon from "@mui/icons-material/Search";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -71,6 +72,9 @@ export default function HomePage() {
           >
             MediDigi Store
           </Typography>
+          <IconButton color="inherit" href="./homepage/dashboard">
+            <DashboardIcon />
+          </IconButton>
           <IconButton color="inherit">
             <Badge badgeContent={cartCount} color="error">
               <ShoppingCartIcon />

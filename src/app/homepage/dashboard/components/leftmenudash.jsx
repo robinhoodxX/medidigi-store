@@ -4,6 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
 import DrugSearchingForum from './drugsearchingforum';
+import Wishlists from './wishlists';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -72,7 +73,7 @@ export default function leftmenudash() {
             <DrugSearchingForum />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            Item Two
+            <Wishlists />
           </TabPanel>
           <TabPanel value={value} index={2}>
             Item Three
