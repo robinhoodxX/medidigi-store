@@ -1,6 +1,9 @@
+'use client';
+
 import { useEffect, useState } from 'react';
 import axios from 'axios';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import Button from '@mui/material/Button';
 
 export default function wishlists() {
   const [items, setItems] = useState([]);
@@ -33,13 +36,37 @@ export default function wishlists() {
     };
   }, []);
 
+  // Clear wishlist for current guest
+  const handleClear = async () => {
+    try {
+      const guestId = getGuestId();
+      const res = await fetch(`http://localhost:5000/api/wishlist/guest/${guestId}`, {
+        method: "DELETE",
+      });
+
+      const data = await res.json();
+
+      if (data.success) {
+        setItems([]);
+      } else {
+        alert(data.message || "Failed to clear wishlist.");
+      }
+    } catch (error) {
+      console.error("Error clearing wishlist:", error);
+      alert("Error clearing wishlist. Please check console for details.");
+    }
+  };
+
   return (
     <Box>
-      <Typography variant="h4" gutterBottom>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, p: 2, bgcolor: '#f5f5f5', borderRadius: 1 }}>
+        <Typography variant="h4" gutterBottom>
         Your Wishlists
       </Typography>
+      <Button variant="contained" onClick={handleClear}>Clear</Button>
+      </Box>
       {items.length === 0 ? (
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', mt: 20 }}>
           Your wishlist is empty.
         </Typography>
       ) : (

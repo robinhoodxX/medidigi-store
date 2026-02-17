@@ -4,7 +4,7 @@ import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
 import DrugSearchingForum from './drugsearchingforum';
-import Wishlists from './wishlists';
+import Wishlists from './wishlists/page';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -65,7 +65,7 @@ export default function leftmenudash() {
           <Tab label="Custom" {...a11yProps(2)} />
           <Tab label="Profile" {...a11yProps(3)} />
           <Tab label="Setting" {...a11yProps(4)} />
-          <Tab label="Log out" {...a11yProps(5)} />
+          <Tab label="Log out" {...a11yProps(5)} href="/login" />
           <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
         <Box sx={{ width: '100%' }}>
@@ -85,7 +85,6 @@ export default function leftmenudash() {
             Item Five
           </TabPanel>
           <TabPanel value={value} index={5}>
-            Item Six
           </TabPanel>
           <TabPanel value={value} index={6}>
             Item Seven

@@ -25,9 +25,6 @@ function dashboard() {
           <IconButton color="inherit" href="/homepage">
             <HomeFilledIcon />
           </IconButton>
-          <Button color="inherit" href="/login">
-            Login
-          </Button>
         </Toolbar>
       </AppBar>
       <Container disableGutters sx={{ display: 'flex', flexDirection: 'row', m: 0  }}>

@@ -75,10 +75,8 @@ export default function HomePage() {
           <IconButton color="inherit" href="./homepage/dashboard">
             <DashboardIcon />
           </IconButton>
-          <IconButton color="inherit">
-            <Badge badgeContent={cartCount} color="error">
+          <IconButton color="inherit" href="/homepage/dashboard/components/wishlists">
               <ShoppingCartIcon />
-            </Badge>
           </IconButton>
           <Button color="inherit" href="/login">
             Login
