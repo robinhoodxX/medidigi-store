@@ -1,8 +1,14 @@
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, InputAdornment } from "@mui/material";
+import SearchIcon from "@mui/icons-material/Search";
+import { useState } from "react";
 
 export default function customs() {
+
+    const [search, setSearch] = useState("");
+    const [searchInput, setSearchInput] = useState("");
+
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 2, bgcolor: "#f5f5f5", borderRadius: 1, m: 20 }}>
       <Typography variant="h4" gutterBottom>
@@ -24,7 +30,16 @@ export default function customs() {
         </Box>
       </Box>
       <Box>
-        <Button variant="outlined">Search</Button>
+        <Button variant="outlined" value={searchInput}
+          onChange={(e) => setSearchInput(e.target.value)}
+          sx={{ bgcolor: "white", borderRadius: 1 }}
+          InputProps={{
+            startAdornment: (
+              <InputAdornment position="start">
+                <SearchIcon color="action" />
+              </InputAdornment>
+            ),
+          }}>Search</Button>
       </Box>
     </Box>
   );
