@@ -1,13 +1,26 @@
+'use-client';
+
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
 import { Box, Typography, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
+import { useEffect } from "react";
 
 export default function customs() {
 
     const [search, setSearch] = useState("");
     const [searchInput, setSearchInput] = useState("");
+
+      // Debounce search input
+      useEffect(() => {
+        const timer = setTimeout(() => {
+          setSearch(searchInput);
+          setPage(0); // Reset to first page when search changes
+        }, 500); // Wait 500ms after user stops typing
+    
+        return () => clearTimeout(timer);
+      }, [searchInput]);
 
   return (
     <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 2, bgcolor: "#f5f5f5", borderRadius: 1, m: 20 }}>
