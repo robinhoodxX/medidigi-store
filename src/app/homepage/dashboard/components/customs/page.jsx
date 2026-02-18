@@ -4,37 +4,15 @@ import { Box, Typography } from "@mui/material";
 
 export default function customs() {
   return (
-    <Box sx={{ p: 2, bgcolor: "#f5f5f5", borderRadius: 1, m: 20 }}>
-      <Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            mb: 2,
-            p: 2,
-            borderRadius: 1,
-          }}
-        >
+    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 2, bgcolor: "#f5f5f5", borderRadius: 1, m: 20 }}>
+      <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", mb: 4 }}>
+        <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
           <TextField id="outlined-basic" label="Drug name" variant="outlined" />
           <TextField id="outlined-basic" label="Alias" variant="outlined" />
           <TextField id="outlined-basic" label="Category" variant="outlined" />
         </Box>
-        <Box
-          sx={{
-            display: "flex",
-            justifyContent: "space-around",
-            alignItems: "center",
-            mb: 2,
-            p: 2,
-            borderRadius: 1,
-          }}
-        >
-          <TextField
-            id="outlined-basic"
-            label="Dosage form"
-            variant="outlined"
-          />
+        <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+          <TextField id="outlined-basic" label="Dosage form" variant="outlined" />
           <TextField id="outlined-basic" label="Effect" variant="outlined" />
           <TextField id="outlined-basic" label="Keywords" variant="outlined" />
         </Box>
