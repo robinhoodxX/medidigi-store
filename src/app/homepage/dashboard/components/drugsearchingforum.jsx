@@ -141,7 +141,7 @@ export default function drugsearchingforum () {
                   <TableCell><strong>Category</strong></TableCell>
                   <TableCell><strong>Dosage Form</strong></TableCell>
                   <TableCell><strong>Effect</strong></TableCell>
-                  <TableCell><strong>Wishlist</strong></TableCell>
+                  <TableCell><strong>Wishlists</strong></TableCell>
                 </TableRow>
               </TableHead>
               <TableBody>
