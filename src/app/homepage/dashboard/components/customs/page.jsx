@@ -5,9 +5,9 @@ import TextField from "@mui/material/TextField";
 import { Box, Typography, InputAdornment } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
 import { useState } from "react";
-import { useEffect } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
+import axios from "axios";
 
 export default function customs() {
 
@@ -43,17 +43,14 @@ export default function customs() {
         .filter(([_, value]) => value !== "")
         .reduce((acc, [key, value]) => ({ ...acc, [key]: value }), {});
 
-      const queryString = new URLSearchParams(searchParams).toString();
+      // Request to your backend API using Axios, aligning with `drugsearchingforum.jsx`
+      const response = await axios.get("http://localhost:5000/api/drugs", {
+        params: searchParams // the params will automatically map to the endpoint
+      });
 
-      // Request to your backend API. Adjust the URL route as needed.
-      const response = await fetch(`/api/drugs/search?${queryString}`);
-
-      if (!response.ok) {
-        throw new Error("Failed to fetch search results.");
-      }
-
-      const data = await response.json();
-      setResults(data); // Assuming your API returns array of results
+      // Based on drugsearchingforum, the list is usually in response.data.drugs
+      // Fallback to response.data if it's returning an array directly
+      setResults(response.data.drugs || response.data);
     } catch (err) {
       console.error("Search error:", err);
       setError(err.message || "An error occurred while searching. Please try again.");
