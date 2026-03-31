@@ -1,12 +1,14 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
 import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
 import Button from '@mui/material/Button';
+import html2canvas from 'html2canvas';
 
 export default function wishlists() {
   const [items, setItems] = useState([]);
+  const tableRef = useRef(null);
 
   const getGuestId = () => {
     let guestId = localStorage.getItem('guestId');
@@ -57,20 +59,45 @@ export default function wishlists() {
     }
   };
 
+  const handleDownload = async () => {
+    if (tableRef.current) {
+      try {
+        const canvas = await html2canvas(tableRef.current, { scale: 2 });
+        const dataURL = canvas.toDataURL('image/png');
+        const link = document.createElement('a');
+        link.href = dataURL;
+        link.download = 'my-wishlist.png';
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+      } catch (error) {
+        console.error("Error generating image:", error);
+        alert("Failed to download image.");
+      }
+    }
+  };
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, p: 2, bgcolor: '#f5f5f5', borderRadius: 1 }}>
         <Typography variant="h4" gutterBottom>
-        Your Wishlists
-      </Typography>
-      <Button variant="contained" onClick={handleClear}>Clear</Button>
+          Your Wishlists
+        </Typography>
+        <Box sx={{ display: 'flex', gap: 2 }}>
+          <Button variant="outlined" color="primary" onClick={handleDownload} disabled={items.length === 0}>
+            Download Image
+          </Button>
+          <Button variant="contained" color="error" onClick={handleClear}>
+            Clear
+          </Button>
+        </Box>
       </Box>
       {items.length === 0 ? (
         <Typography variant="body1" color="text.secondary" sx={{ textAlign: 'center', mt: 20 }}>
           Your wishlist is empty.
         </Typography>
       ) : (
-        <TableContainer component={Paper}>
+        <TableContainer component={Paper} ref={tableRef}>
           <Table>
             <TableHead>
               <TableRow sx={{ bgcolor: '#eee' }}>
