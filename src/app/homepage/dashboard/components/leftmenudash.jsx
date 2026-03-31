@@ -6,6 +6,7 @@ import PropTypes from 'prop-types';
 import DrugSearchingForum from './drugsearchingforum';
 import Wishlists from './wishlists/page';
 import Customs from './customs/page';
+import Profile from './profile/page';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -80,7 +81,7 @@ export default function leftmenudash() {
             <Customs />
           </TabPanel>
           <TabPanel value={value} index={3}>
-            Item Four
+            <Profile />
           </TabPanel>
           <TabPanel value={value} index={4}>
             Item Five
