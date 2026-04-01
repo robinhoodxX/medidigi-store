@@ -4,9 +4,11 @@
 
 import Button from "@mui/material/Button";
 import TextField from "@mui/material/TextField";
-import { Box, Typography, InputAdornment } from "@mui/material";
+import { Box, Typography, IconButton } from "@mui/material";
 import SearchIcon from "@mui/icons-material/Search";
-import { useState } from "react";
+import FavoriteIcon from "@mui/icons-material/Favorite";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
@@ -27,6 +29,59 @@ export default function customs() {
   const [loading, setLoading] = useState(false);
   const [results, setResults] = useState(null);
   const [error, setError] = useState(null);
+  const [wishlistIds, setWishlistIds] = useState([]);
+
+  // Generate or retrieve a unique guest ID for wishlist management
+  const getGuestId = () => {
+    let guestId = localStorage.getItem("guestId");
+    if (!guestId) {
+      guestId = (crypto && crypto.randomUUID) ? crypto.randomUUID() : `guest-${Date.now()}`;
+      localStorage.setItem("guestId", guestId);
+    }
+    return guestId;
+  };
+
+  const handleWishlistToggle = async (drugId) => {
+    const guestId = getGuestId();
+
+    if (wishlistIds.includes(drugId)) {
+      setWishlistIds(wishlistIds.filter((id) => id !== drugId));
+    } else {
+      setWishlistIds([...wishlistIds, drugId]);
+    }
+
+    try {
+      await axios.post("http://localhost:5000/api/wishlist/guest/toggle", { guestId, drugId });
+      window.dispatchEvent(new Event("wishlist-updated"));
+    } catch (err) {
+      console.error("Wishlist toggle error:", err);
+      // Re-sync from server if toggle fails after optimistic UI update.
+      const res = await axios.get("http://localhost:5000/api/wishlist/guest/ids", {
+        params: { guestId }
+      });
+      setWishlistIds(res.data.wishlistIds || []);
+    }
+  };
+
+  useEffect(() => {
+    const fetchGuestWishlistIds = async () => {
+      try {
+        const guestId = getGuestId();
+        const response = await axios.get("http://localhost:5000/api/wishlist/guest/ids", {
+          params: { guestId }
+        });
+        setWishlistIds(response.data.wishlistIds || []);
+      } catch (err) {
+        console.error("Fetch wishlist IDs error:", err);
+      }
+    };
+
+    fetchGuestWishlistIds();
+  }, []);
+  //////
+  ////
+  //
+  // end of wishlist management code, below is the custom search code
 
   const handleChange = (e) => {
     const { name, value } = e.target; // Extracts which box was typed in and what was typed
@@ -148,8 +203,19 @@ export default function customs() {
               {results.length > 0 ? (
                 <>
                   {results.map((item, index) => (
-                    <Box key={index} sx={{ p: 2, mb: 2, border: "1px solid #ccc", borderRadius: 1, bgcolor: "white" }}>
-                      <Typography variant="body1"><strong>{item["Drug Name"] || item.drugName || "Unnamed Drug"}</strong></Typography>
+                    <Box key={item._id || index} sx={{ p: 2, mb: 2, border: "1px solid #ccc", borderRadius: 1, bgcolor: "white" }}>
+                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                        <Typography variant="body1"><strong>{item["Drug Name"] || item.drugName || "Unnamed Drug"}</strong></Typography>
+                        {item._id && (
+                          <IconButton onClick={() => handleWishlistToggle(item._id)}>
+                            {wishlistIds.includes(item._id) ? (
+                              <FavoriteIcon sx={{ color: "red" }} />
+                            ) : (
+                              <FavoriteBorderIcon />
+                            )}
+                          </IconButton>
+                        )}
+                      </Box>
                       <Typography variant="body2" color="textSecondary"><strong>Category:</strong> {item.Category || item.category}</Typography>
                       <Typography variant="body2" color="textSecondary"><strong>Alias:</strong> {item["Alias name"] || item.alias}</Typography>
                       <Typography variant="body2" color="textSecondary"><strong>Dosage Form:</strong> {item["Dosage Form"] || item.dosageForm}</Typography>

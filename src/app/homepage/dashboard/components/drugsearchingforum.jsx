@@ -101,6 +101,7 @@ export default function drugsearchingforum () {
             mb: 4,
           }}
         >
+          {/* This is the hero section with a search bar. It has a light blue background and some padding for spacing. */}
           <Container maxWidth="md">
             <Typography
               variant="h3"
@@ -144,6 +145,7 @@ export default function drugsearchingforum () {
                   <TableCell><strong>Wishlists</strong></TableCell>
                 </TableRow>
               </TableHead>
+              {/* Display the list of drugs in a table format. Each row shows the drug's name, alias, category, dosage form, effect, and a wishlist toggle button. */}
               <TableBody>
                 {drugs.map((drug) => (
                   <TableRow key={drug._id}>
@@ -152,6 +154,7 @@ export default function drugsearchingforum () {
                     <TableCell>{drug.Category}</TableCell>
                     <TableCell>{drug["Dosage Form"]}</TableCell>
                     <TableCell>{drug["Effect Description"]}</TableCell>
+                    {/* The wishlist toggle button allows users to add or remove the drug from their wishlist. It shows a filled heart icon if the drug is in the wishlist, and an outlined heart if it's not. Clicking the button updates the wishlist both in the UI and on the backend. */}
                     <TableCell>
                       <IconButton onClick={() => handleWishlistToggle(drug._id)}>
                         {wishlistIds.includes(drug._id) ? (
