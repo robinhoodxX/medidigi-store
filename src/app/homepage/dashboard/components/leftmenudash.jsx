@@ -1,5 +1,7 @@
+"use client";
+
 import React from 'react';
-import { Box, List, ListItem, ListItemButton, Typography } from '@mui/material';
+import { Box, Typography } from '@mui/material';
 import Tabs from '@mui/material/Tabs';
 import Tab from '@mui/material/Tab';
 import PropTypes from 'prop-types';
@@ -7,6 +9,7 @@ import DrugSearchingForum from './drugsearchingforum';
 import Wishlists from './wishlists/page';
 import Customs from './customs/page';
 import Profile from './profile/page';
+import { useRouter } from 'next/navigation';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -43,8 +46,15 @@ function a11yProps(index) {
 
 
 export default function leftmenudash() {
+  const router = useRouter();
 
   const [value, setValue] = React.useState(0);
+
+  const handleLogout = () => {
+    localStorage.removeItem("userId");
+    localStorage.removeItem("token");
+    router.push("/login");
+  };
 
   const handleChange = (event, newValue) => {
     setValue(newValue);
@@ -67,7 +77,7 @@ export default function leftmenudash() {
           <Tab label="Wishlist" {...a11yProps(2)} />
           <Tab label="Profile" {...a11yProps(3)} />
           <Tab label="Setting" {...a11yProps(4)} />
-          <Tab label="Log out" {...a11yProps(5)} href="/login" />
+          <Tab label="Log out" {...a11yProps(5)} onClick={handleLogout} />
           <Tab label="Item Seven" {...a11yProps(6)} />
         </Tabs>
         <Box sx={{ width: '100%' }}>

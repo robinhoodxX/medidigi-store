@@ -149,14 +149,6 @@ export default function profile() {
   };
 
 
-
-  //  Logout function
-  const handleLogout = () => {
-    localStorage.removeItem("userId");
-    localStorage.removeItem("token");
-    router.push("/login"); // redirect to login page
-  };
-
   //  Delete account
   const handleDelete = async () => {
     if (!userId) {
@@ -340,10 +332,6 @@ export default function profile() {
                   {/* Save Button */}
                   <Button variant="contained" color="primary" onClick={handleSave} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
                     Save Changes
-                  </Button>
-                  {/* Sign Out Button */}
-                  <Button variant="outlined" color="error" onClick={handleLogout} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
-                    Sign Out
                   </Button>
                   {/* Delete Button */}
                   <Button variant="outlined" color="error" onClick={handleDelete} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
