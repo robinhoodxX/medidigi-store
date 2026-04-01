@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
 import { motion } from "framer-motion";
@@ -5,12 +7,13 @@ import { Avatar, Button, TextField, IconButton, InputAdornment, Paper } from "@m
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
 import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 
 
 
 export default function profile() {
-
-  const userId = localStorage.getItem("userId"); // TODO: replace with logged-in user ID (from auth/session)
+  const router = useRouter();
+  const [userId, setUserId] = useState("");
 
   const [profile, setProfile] = useState({
     username: "",
@@ -31,16 +34,29 @@ export default function profile() {
   // ================= FETCH PROFILE =================
   useEffect(() => {
     const fetchProfile = async () => {
+      const storedUserId = localStorage.getItem("userId");
       const token = localStorage.getItem("token"); //  get JWT
-      const res = await fetch(`http://localhost:5000/api/users/${userId}`, {
+      if (!storedUserId || !token) {
+        router.push("/login");
+        return;
+      }
+
+      setUserId(storedUserId);
+
+      const res = await fetch(`http://localhost:5000/api/users/${storedUserId}`, {
         headers: { Authorization: `Bearer ${token}` }, // attach JWT
       });
       const data = await res.json();
+      if (!res.ok) {
+        alert(data.error || "Failed to load profile.");
+        return;
+      }
+
       // Don't load the hashed password into the form
       setProfile({
         username: data.username || "",
         email: data.email || "",
-        password: data.password || "", // Keep password field empty for security
+        password: "", // Keep password field empty for security
         oldPassword: "",
         newPassword: "",
         mobile: data.mobile || "",
@@ -53,7 +69,7 @@ export default function profile() {
       );
     };
     fetchProfile();
-  }, [userId]);
+  }, [router]);
 
   // ================= HANDLERS =================
   const handleChange = (e) => {
@@ -68,6 +84,11 @@ export default function profile() {
 
   const handleSave = async () => {
     try {
+      if (!userId) {
+        alert("User session not found. Please log in again.");
+        return;
+      }
+
       //  If the user entered a new password, handle it via secure password update route
       if (profile.newPassword && profile.newPassword.trim() !== "") {
         const res = await fetch(`http://localhost:5000/api/users/${userId}/password`, {
@@ -133,11 +154,16 @@ export default function profile() {
   const handleLogout = () => {
     localStorage.removeItem("userId");
     localStorage.removeItem("token");
-    navigate("/lgscrn"); // redirect to login page
+    router.push("/login"); // redirect to login page
   };
 
   //  Delete account
   const handleDelete = async () => {
+    if (!userId) {
+      alert("User session not found. Please log in again.");
+      return;
+    }
+
     const confirmDelete = window.confirm(
       "Are you sure you want to delete your profile?"
     );
