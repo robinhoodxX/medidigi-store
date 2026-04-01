@@ -289,7 +289,7 @@ export default function customs() {
           </Button>
         </Box>
 
-        {/* Gemini AI consultant */}
+        {/* AI consultant (Groq-backed) */}
         <Paper
           elevation={3}
           sx={{ p: 4, borderRadius: 2, mt: 4, bgcolor: "#fafafa" }}
