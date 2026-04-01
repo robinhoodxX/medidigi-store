@@ -27,7 +27,7 @@ function dashboard() {
           </IconButton>
         </Toolbar>
       </AppBar>
-      <Container disableGutters sx={{ display: 'flex', flexDirection: 'row', m: 0  }}>
+      <Container disableGutters maxWidth={false} sx={{ display: 'flex', flexDirection: 'row', m: 0}}>
         <LeftMenuDash />
       </Container>
     </Box>

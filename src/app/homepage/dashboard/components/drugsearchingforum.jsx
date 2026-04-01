@@ -6,7 +6,6 @@ import {
   AppBar, Toolbar, Typography, IconButton, Button, Box, Container, List, ListItem, ListItemButton, Table, TableBody, TableCell, TableContainer, TableHead,
   TableRow, Paper, TablePagination, TextField, InputAdornment} from '@mui/material';
 import SearchIcon from "@mui/icons-material/Search";
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import FavoriteBorderIcon from '@mui/icons-material/FavoriteBorder';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 
@@ -18,7 +17,6 @@ export default function drugsearchingforum () {
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [totalCount, setTotalCount] = useState(0);
-  const [cartCount, setCartCount] = useState(0);
   const [wishlistIds, setWishlistIds] = useState([]);
 
 

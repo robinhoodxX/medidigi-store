@@ -51,9 +51,9 @@ export default function leftmenudash() {
   };
 
   return (
-    <Box sx={{ }}>
+    <Box sx={{ width: '100%', bgcolor: 'background.paper', display: 'flex', height: '100%' }}>
       <Box
-        sx={{ bgcolor: 'background.paper', display: 'flex', width: '100vw' }}
+        sx={{ bgcolor: 'background.paper', display: 'flex', width: '100%', height: '100%' }}
       >
         <Tabs
           orientation="vertical"
@@ -63,8 +63,8 @@ export default function leftmenudash() {
           sx={{ overflow: 'unset', borderRight: 1, borderColor: 'divider', width: '300px' }}
         >
           <Tab label="Search" {...a11yProps(0)} />
-          <Tab label="Whistlist" {...a11yProps(1)} />
-          <Tab label="Custom" {...a11yProps(2)} />
+          <Tab label="Custom" {...a11yProps(1)} />
+          <Tab label="Wishlist" {...a11yProps(2)} />
           <Tab label="Profile" {...a11yProps(3)} />
           <Tab label="Setting" {...a11yProps(4)} />
           <Tab label="Log out" {...a11yProps(5)} href="/login" />
@@ -75,10 +75,10 @@ export default function leftmenudash() {
             <DrugSearchingForum />
           </TabPanel>
           <TabPanel value={value} index={1}>
-            <Wishlists />
+            <Customs />
           </TabPanel>
           <TabPanel value={value} index={2}>
-            <Customs />
+            <Wishlists />
           </TabPanel>
           <TabPanel value={value} index={3}>
             <Profile />

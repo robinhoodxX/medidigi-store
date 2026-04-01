@@ -166,172 +166,168 @@ export default function profile() {
 
   return (
     <Box>
-      <Box>
-        <motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 10, opacity: 1 }} transition={{ duration: 2 }} style={{ border: 'none', background: 'none', width: '100%' }}>
-          <Box sx={{ minHeight: "100vh", width: "100%", zIndex: 1, position: "relative" }}>
-            {/* Main Content Area */}
-            <Box sx={{ mt: 15, pb: 6, width: "100%", mx: "auto" }}>
-              <Paper sx={{ display: "flex", borderRadius: 4, backgroundColor: "rgba(71, 71, 71, 0.1)", width: "90%", mx: "auto", pt: 2, pb: 4, backdropFilter: "blur(5px)" }}>
-                {/* Edit Profile Section */}
-                <Box sx={{ width: "100%", mt: 5, display: "flex", justifyContent: "center" }}>
-                  <Paper sx={{ width: { xs: "90%", sm: "50%", md: "50%", lg: "50%", xl: "50%" }, p: 1, borderRadius: 3, boxShadow: "none", background: "transparent" }}>
-                    <Typography variant="h5" align="center" gutterBottom sx={{ fontSize: { xs: 16, sm: 24, md: 24, lg: 24, xl: 24 }, mb: 2 }}>
-                      Edit Profile
-                    </Typography>
-                    {/* Profile Picture */}
-                    <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 3 }}>
-                      <Avatar
-                        src={previewPic || ""}
-                        sx={{ width: 100, height: 100, mb: 2 }}
-                      />
-                      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
-                        <Button variant="contained" component="label" sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 }, textTransform: "none", boxShadow: "none" }}>
-                          Change Picture
-                          <input type="file" hidden onChange={handleFileChange} />
-                        </Button>
-                      </Box>
-                    </Box>
-                    {/* Inputs */}
-                    <TextField label="Username" name="username" fullWidth margin="normal"
-                      value={profile.username || ""} onChange={handleChange}
-                      autoComplete="username" // * ADDED
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
+      <Box sx={{ width: "100%", zIndex: 1, position: "relative" }}>
+        {/* Main Content Area */}
+        <Box sx={{ mt: 5, pl: 5, pr: 5, pb: 6, width: "100%", mx: "auto" }}>
+          <Paper sx={{ display: "flex", borderRadius: 4, backgroundColor: "#f5f5f5", width: "auto", mx: "auto", pt: 2, pb: 4, backdropFilter: "blur(5px)", boxShadow: "none" }}>
+            {/* Edit Profile Section */}
+            <Box sx={{ width: "100%", mt: 5, display: "flex", justifyContent: "center" }}>
+              <Paper sx={{ width: { xs: "90%", sm: "50%", md: "50%", lg: "50%", xl: "50%" }, p: 1, borderRadius: 3, boxShadow: "none", background: "transparent" }}>
+                <Typography variant="h5" align="center" gutterBottom sx={{ fontSize: { xs: 16, sm: 24, md: 24, lg: 24, xl: 24 }, mb: 2 }}>
+                  Edit Profile
+                </Typography>
+                {/* Profile Picture */}
+                <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", mb: 3 }}>
+                  <Avatar
+                    src={previewPic || ""}
+                    sx={{ width: 100, height: 100, mb: 2 }}
+                  />
+                  <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+                    <Button variant="contained" component="label" sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 }, textTransform: "none", boxShadow: "none" }}>
+                      Change Picture
+                      <input type="file" hidden onChange={handleFileChange} />
+                    </Button>
+                  </Box>
+                </Box>
+                {/* Inputs */}
+                <TextField label="Username" name="username" fullWidth margin="normal"
+                  value={profile.username || ""} onChange={handleChange}
+                  autoComplete="username" // * ADDED
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
 
-                    <TextField label="Email" name="email" type="email" fullWidth margin="normal"
-                      value={profile.email || ""} onChange={handleChange}
-                      autoComplete="email" // * ADDED
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
+                <TextField label="Email" name="email" type="email" fullWidth margin="normal"
+                  value={profile.email || ""} onChange={handleChange}
+                  autoComplete="email" // * ADDED
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
 
-                    {/* Old Password */}
-                    <TextField
-                      label="Old Password"
-                      name="oldPassword"
-                      type={showOldPassword ? "text" : "password"}
-                      fullWidth
-                      margin="normal"
-                      value={profile.oldPassword || ""}
-                      onChange={handleChange}
-                      autoComplete="current-password" // * ADDED
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={() => setShowOldPassword(!showOldPassword)}>
-                              {showOldPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
+                {/* Old Password */}
+                <TextField
+                  label="Old Password"
+                  name="oldPassword"
+                  type={showOldPassword ? "text" : "password"}
+                  fullWidth
+                  margin="normal"
+                  value={profile.oldPassword || ""}
+                  onChange={handleChange}
+                  autoComplete="current-password" // * ADDED
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowOldPassword(!showOldPassword)}>
+                          {showOldPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
 
-                    {/*  New Password */}
-                    <TextField
-                      label="New Password"
-                      name="newPassword"
-                      type={showNewPassword ? "text" : "password"}
-                      fullWidth
-                      margin="normal"
-                      value={profile.newPassword || ""}
-                      onChange={handleChange}
-                      autoComplete="new-password" // * ADDED
-                      InputProps={{
-                        endAdornment: (
-                          <InputAdornment position="end">
-                            <IconButton onClick={() => setShowNewPassword(!showNewPassword)}>
-                              {showNewPassword ? <VisibilityOff /> : <Visibility />}
-                            </IconButton>
-                          </InputAdornment>
-                        ),
-                      }}
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
-                    <TextField label="Mobile" name="mobile" fullWidth margin="normal"
-                      value={profile.mobile || ""} onChange={handleChange}
-                      autoComplete="tel" // * ADDED
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
-                    <TextField label="Address" name="address" fullWidth margin="normal"
-                      value={profile.address || ""} onChange={handleChange}
-                      autoComplete="street-address" // * ADDED
-                      sx={{
-                        "& .MuiInputBase-root": {
-                          height: { xs: 45 },     // control height
-                          fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
-                          padding: { xs: "0 10px" }, // inner padding
-                        },
-                        "& .MuiInputLabel-root": {
-                          fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
-                        },
-                      }}
-                    />
-                    {/* Action Buttons */}
-                    <Box sx={{ mt: 3, textAlign: "center", gap: 1, display: "flex", flexDirection: "row", justifyContent: "center" }}>
-                      {/* Save Button */}
-                      <Button variant="contained" color="primary" onClick={handleSave} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
-                        Save Changes
-                      </Button>
-                      {/* Sign Out Button */}
-                      <Button variant="outlined" color="error" onClick={handleLogout} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
-                        Sign Out
-                      </Button>
-                      {/* Delete Button */}
-                      <Button variant="outlined" color="error" onClick={handleDelete} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
-                        Delete Profile
-                      </Button>
-                    </Box>
-                  </Paper>
+                {/*  New Password */}
+                <TextField
+                  label="New Password"
+                  name="newPassword"
+                  type={showNewPassword ? "text" : "password"}
+                  fullWidth
+                  margin="normal"
+                  value={profile.newPassword || ""}
+                  onChange={handleChange}
+                  autoComplete="new-password" // * ADDED
+                  InputProps={{
+                    endAdornment: (
+                      <InputAdornment position="end">
+                        <IconButton onClick={() => setShowNewPassword(!showNewPassword)}>
+                          {showNewPassword ? <VisibilityOff /> : <Visibility />}
+                        </IconButton>
+                      </InputAdornment>
+                    ),
+                  }}
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
+                <TextField label="Mobile" name="mobile" fullWidth margin="normal"
+                  value={profile.mobile || ""} onChange={handleChange}
+                  autoComplete="tel" // * ADDED
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
+                <TextField label="Address" name="address" fullWidth margin="normal"
+                  value={profile.address || ""} onChange={handleChange}
+                  autoComplete="street-address" // * ADDED
+                  sx={{
+                    "& .MuiInputBase-root": {
+                      height: { xs: 45 },     // control height
+                      fontSize: { xs: 12, sm: 15, md: 15, lg: 15, xl: 15 },   // font size
+                      padding: { xs: "0 10px" }, // inner padding
+                    },
+                    "& .MuiInputLabel-root": {
+                      fontSize: { xs: 13, sm: 15, md: 15, lg: 15, xl: 15 },
+                    },
+                  }}
+                />
+                {/* Action Buttons */}
+                <Box sx={{ mt: 3, textAlign: "center", gap: 1, display: "flex", flexDirection: "row", justifyContent: "center" }}>
+                  {/* Save Button */}
+                  <Button variant="contained" color="primary" onClick={handleSave} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
+                    Save Changes
+                  </Button>
+                  {/* Sign Out Button */}
+                  <Button variant="outlined" color="error" onClick={handleLogout} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
+                    Sign Out
+                  </Button>
+                  {/* Delete Button */}
+                  <Button variant="outlined" color="error" onClick={handleDelete} sx={{ fontSize: { xs: 10, sm: 15, md: 15, lg: 15, xl: 15 } }}>
+                    Delete Profile
+                  </Button>
                 </Box>
               </Paper>
             </Box>
-          </Box>
-        </motion.div>
+          </Paper>
+        </Box>
       </Box>
     </Box>
   );
