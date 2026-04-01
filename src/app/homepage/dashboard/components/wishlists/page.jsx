@@ -2,8 +2,9 @@
 
 import { useEffect, useState, useRef } from 'react';
 import axios from 'axios';
-import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper } from '@mui/material';
+import { Box, Typography, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Paper, IconButton } from '@mui/material';
 import Button from '@mui/material/Button';
+import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import html2canvas from 'html2canvas';
 
 export default function wishlists() {
@@ -77,6 +78,23 @@ export default function wishlists() {
     }
   };
 
+  const handleRemoveItem = async (drugId) => {
+    const guestId = getGuestId();
+    const previousItems = items;
+
+    // Optimistic UI update for a snappy remove action.
+    setItems((prev) => prev.filter((drug) => drug._id !== drugId));
+
+    try {
+      await axios.post('http://localhost:5000/api/wishlist/guest/toggle', { guestId, drugId });
+      window.dispatchEvent(new Event('wishlist-updated'));
+    } catch (error) {
+      console.error('Error removing wishlist item:', error);
+      setItems(previousItems);
+      alert('Failed to remove item from wishlist. Please try again.');
+    }
+  };
+
   return (
     <Box>
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2, p: 2, bgcolor: '#f5f5f5', borderRadius: 1 }}>
@@ -106,6 +124,7 @@ export default function wishlists() {
                 <TableCell><strong>Category</strong></TableCell>
                 <TableCell><strong>Dosage Form</strong></TableCell>
                 <TableCell><strong>Effect</strong></TableCell>
+                <TableCell><strong>Action</strong></TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -116,6 +135,15 @@ export default function wishlists() {
                   <TableCell>{drug.Category}</TableCell>
                   <TableCell>{drug["Dosage Form"]}</TableCell>
                   <TableCell>{drug["Effect Description"]}</TableCell>
+                  <TableCell>
+                    <IconButton
+                      color="error"
+                      aria-label="remove from wishlist"
+                      onClick={() => handleRemoveItem(drug._id)}
+                    >
+                      <DeleteOutlineIcon />
+                    </IconButton>
+                  </TableCell>
                 </TableRow>
               ))}
             </TableBody>

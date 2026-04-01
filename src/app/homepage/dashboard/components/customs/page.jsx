@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import Alert from "@mui/material/Alert";
 import axios from "axios";
-import { motion as Motion } from "framer-motion";
 
 export default function customs() {
 
@@ -155,102 +154,100 @@ export default function customs() {
 
   return (
     <Box>
-      <Motion.div initial={{ y: -50, opacity: 0 }} animate={{ y: 10, opacity: 1 }} transition={{ duration: 2 }} style={{ border: 'none', background: 'none', width: '100%' }}>
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 2, bgcolor: "#f5f5f5", borderRadius: 4, m: 20 }}>
-          <Typography variant="h4" gutterBottom>
-            Custom Search
-          </Typography>
-          <Typography variant="body1" gutterBottom>
-            Enter specific drug attributes to find the perfect match for your needs.
-          </Typography>
-          <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", mb: 4, mt: 4 }}>
-            <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-              <TextField name="drugName" value={formData.drugName} onChange={handleChange} label="Drug name" variant="outlined" />
-              <TextField name="alias" value={formData.alias} onChange={handleChange} label="Alias" variant="outlined" />
-              <TextField name="category" value={formData.category} onChange={handleChange} label="Category" variant="outlined" />
-            </Box>
-            <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
-              <TextField name="dosageForm" value={formData.dosageForm} onChange={handleChange} label="Dosage form" variant="outlined" />
-              <TextField name="effect" value={formData.effect} onChange={handleChange} label="Effect" variant="outlined" />
-              <TextField name="keywords" value={formData.keywords} onChange={handleChange} label="Keywords" variant="outlined" />
-            </Box>
+      <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center", p: 2, bgcolor: "#f5f5f5", borderRadius: 4, m: 20 }}>
+        <Typography variant="h4" gutterBottom>
+          Custom Search
+        </Typography>
+        <Typography variant="body1" gutterBottom>
+          Enter specific drug attributes to find the perfect match for your needs.
+        </Typography>
+        <Box sx={{ display: "flex", flexDirection: "column", justifyContent: "center", mb: 4, mt: 4 }}>
+          <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+            <TextField name="drugName" value={formData.drugName} onChange={handleChange} label="Drug name" variant="outlined" />
+            <TextField name="alias" value={formData.alias} onChange={handleChange} label="Alias" variant="outlined" />
+            <TextField name="category" value={formData.category} onChange={handleChange} label="Category" variant="outlined" />
           </Box>
-          <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
-            <Button
-              variant="contained"
-              onClick={() => handleSearch(1)}
-              startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
-              size="large"
-              sx={{ px: 4, py: 1 }}
-              disabled={loading}
-            >
-              {loading ? "Searching..." : "Search"}
-            </Button>
+          <Box sx={{ display: "flex", gap: 2, mb: 2 }}>
+            <TextField name="dosageForm" value={formData.dosageForm} onChange={handleChange} label="Dosage form" variant="outlined" />
+            <TextField name="effect" value={formData.effect} onChange={handleChange} label="Effect" variant="outlined" />
+            <TextField name="keywords" value={formData.keywords} onChange={handleChange} label="Keywords" variant="outlined" />
           </Box>
-
-          {/* Basic Error Handling & Results Display */}
-          {error && (
-            <Alert severity="error" sx={{ mt: 3, width: "100%", maxWidth: 600 }}>
-              {error}
-            </Alert>
-          )}
-
-          {results && (
-            <Box sx={{ mt: 4, width: "100%", maxWidth: 800 }}>
-              <Typography variant="h6" gutterBottom>
-                {results.length > 0 ? "Search Results" : "Empty"}
-              </Typography>
-              {results.length > 0 ? (
-                <>
-                  {results.map((item, index) => (
-                    <Box key={item._id || index} sx={{ p: 2, mb: 2, border: "1px solid #ccc", borderRadius: 1, bgcolor: "white" }}>
-                      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
-                        <Typography variant="body1"><strong>{item["Drug Name"] || item.drugName || "Unnamed Drug"}</strong></Typography>
-                        {item._id && (
-                          <IconButton onClick={() => handleWishlistToggle(item._id)}>
-                            {wishlistIds.includes(item._id) ? (
-                              <FavoriteIcon sx={{ color: "red" }} />
-                            ) : (
-                              <FavoriteBorderIcon />
-                            )}
-                          </IconButton>
-                        )}
-                      </Box>
-                      <Typography variant="body2" color="textSecondary"><strong>Category:</strong> {item.Category || item.category}</Typography>
-                      <Typography variant="body2" color="textSecondary"><strong>Alias:</strong> {item["Alias name"] || item.alias}</Typography>
-                      <Typography variant="body2" color="textSecondary"><strong>Dosage Form:</strong> {item["Dosage Form"] || item.dosageForm}</Typography>
-                      <Typography variant="body2" color="textSecondary"><strong>Effect:</strong> {item["Effect Description"] || item.effect}</Typography>
-                    </Box>
-                  ))}
-                  {totalPages > 1 && (
-                    <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, gap: 2 }}>
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleSearch(page - 1)}
-                        disabled={page <= 1}
-                      >
-                        Previous
-                      </Button>
-                      <Typography sx={{ alignSelf: 'center' }}>
-                        Page {page} of {totalPages}
-                      </Typography>
-                      <Button
-                        variant="outlined"
-                        onClick={() => handleSearch(page + 1)}
-                        disabled={page >= totalPages}
-                      >
-                        Next
-                      </Button>
-                    </Box>
-                  )}
-                </>
-              ) : (
-                <Typography variant="body2">No results found for your search.</Typography>
-              )}
-            </Box>
-          )}
         </Box>
-      </Motion.div>
+        <Box sx={{ display: "flex", gap: 2, alignItems: "center" }}>
+          <Button
+            variant="contained"
+            onClick={() => handleSearch(1)}
+            startIcon={loading ? <CircularProgress size={20} color="inherit" /> : <SearchIcon />}
+            size="large"
+            sx={{ px: 4, py: 1 }}
+            disabled={loading}
+          >
+            {loading ? "Searching..." : "Search"}
+          </Button>
+        </Box>
+
+        {/* Basic Error Handling & Results Display */}
+        {error && (
+          <Alert severity="error" sx={{ mt: 3, width: "100%", maxWidth: 600 }}>
+            {error}
+          </Alert>
+        )}
+
+        {results && (
+          <Box sx={{ mt: 4, width: "100%", maxWidth: 800 }}>
+            <Typography variant="h6" gutterBottom>
+              {results.length > 0 ? "Search Results" : "Empty"}
+            </Typography>
+            {results.length > 0 ? (
+              <>
+                {results.map((item, index) => (
+                  <Box key={item._id || index} sx={{ p: 2, mb: 2, border: "1px solid #ccc", borderRadius: 1, bgcolor: "white" }}>
+                    <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
+                      <Typography variant="body1"><strong>{item["Drug Name"] || item.drugName || "Unnamed Drug"}</strong></Typography>
+                      {item._id && (
+                        <IconButton onClick={() => handleWishlistToggle(item._id)}>
+                          {wishlistIds.includes(item._id) ? (
+                            <FavoriteIcon sx={{ color: "red" }} />
+                          ) : (
+                            <FavoriteBorderIcon />
+                          )}
+                        </IconButton>
+                      )}
+                    </Box>
+                    <Typography variant="body2" color="textSecondary"><strong>Category:</strong> {item.Category || item.category}</Typography>
+                    <Typography variant="body2" color="textSecondary"><strong>Alias:</strong> {item["Alias name"] || item.alias}</Typography>
+                    <Typography variant="body2" color="textSecondary"><strong>Dosage Form:</strong> {item["Dosage Form"] || item.dosageForm}</Typography>
+                    <Typography variant="body2" color="textSecondary"><strong>Effect:</strong> {item["Effect Description"] || item.effect}</Typography>
+                  </Box>
+                ))}
+                {totalPages > 1 && (
+                  <Box sx={{ display: 'flex', justifyContent: 'center', mt: 3, gap: 2 }}>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleSearch(page - 1)}
+                      disabled={page <= 1}
+                    >
+                      Previous
+                    </Button>
+                    <Typography sx={{ alignSelf: 'center' }}>
+                      Page {page} of {totalPages}
+                    </Typography>
+                    <Button
+                      variant="outlined"
+                      onClick={() => handleSearch(page + 1)}
+                      disabled={page >= totalPages}
+                    >
+                      Next
+                    </Button>
+                  </Box>
+                )}
+              </>
+            ) : (
+              <Typography variant="body2">No results found for your search.</Typography>
+            )}
+          </Box>
+        )}
+      </Box>
     </Box>
   );
 }
