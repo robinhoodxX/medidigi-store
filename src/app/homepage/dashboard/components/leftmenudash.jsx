@@ -78,7 +78,7 @@ export default function leftmenudash() {
           <Tab label="Profile" {...a11yProps(3)} />
           <Tab label="Setting" {...a11yProps(4)} />
           <Tab label="Log out" {...a11yProps(5)} onClick={handleLogout} />
-          <Tab label="Item Seven" {...a11yProps(6)} />
+          <Tab label="About Us" {...a11yProps(6)} />
         </Tabs>
         <Box sx={{ width: '100%' }}>
           <TabPanel value={value} index={0}>
@@ -97,9 +97,12 @@ export default function leftmenudash() {
             Item Five
           </TabPanel>
           <TabPanel value={value} index={5}>
+            Item Six
           </TabPanel>
           <TabPanel value={value} index={6}>
-            Item Seven
+            About Us: We are a team of passionate developers dedicated to creating a seamless online platform for medicine discovery and healthcare solutions. 
+            Our mission is to empower users with accurate information and personalized recommendations to enhance their well-being. With a user-friendly interface and 
+            cutting-edge technology, we strive to make healthcare accessible and convenient for everyone.
           </TabPanel>
         </Box>
       </Box>
