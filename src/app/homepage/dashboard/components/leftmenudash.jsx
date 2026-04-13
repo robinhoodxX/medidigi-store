@@ -9,6 +9,7 @@ import DrugSearchingForum from './drugsearchingforum';
 import Wishlists from './wishlists/page';
 import Customs from './customs/page';
 import Profile from './profile/page';
+import AboutUs from './aboutus/page';
 import { useRouter } from 'next/navigation';
 
 function TabPanel(props) {
@@ -100,9 +101,7 @@ export default function leftmenudash() {
             Item Six
           </TabPanel>
           <TabPanel value={value} index={6}>
-            About Us: We are a team of passionate developers dedicated to creating a seamless online platform for medicine discovery and healthcare solutions. 
-            Our mission is to empower users with accurate information and personalized recommendations to enhance their well-being. With a user-friendly interface and 
-            cutting-edge technology, we strive to make healthcare accessible and convenient for everyone.
+            <AboutUs />
           </TabPanel>
         </Box>
       </Box>
