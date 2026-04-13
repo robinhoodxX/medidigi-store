@@ -32,6 +32,7 @@ export default function customs() {
   const [aiError, setAiError] = useState("");
   const [wishlistIds, setWishlistIds] = useState([]);
 
+  
   const getGuestId = () => {
     let guestId = localStorage.getItem("guestId");
     if (!guestId) {

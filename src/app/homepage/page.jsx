@@ -78,9 +78,6 @@ export default function HomePage() {
           <IconButton color="inherit" href="/homepage/dashboard/components/wishlists">
               <ShoppingCartIcon />
           </IconButton>
-          <Button color="inherit" href="/login">
-            Login
-          </Button>
         </Toolbar>
       </AppBar>
 
