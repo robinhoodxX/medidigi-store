@@ -27,7 +27,6 @@ export default function HomePage() {
   const [search, setSearch] = useState("");
   const [searchInput, setSearchInput] = useState("");
   const [totalCount, setTotalCount] = useState(0);
-  const [cartCount, setCartCount] = useState(0);
 
   // Debounce search input
   useEffect(() => {

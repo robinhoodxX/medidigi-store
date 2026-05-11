@@ -2,7 +2,6 @@
 
 import React, { useState } from "react";
 import { Box, Typography } from "@mui/material";
-import { motion } from "framer-motion";
 import { Avatar, Button, TextField, IconButton, InputAdornment, Paper } from "@mui/material";
 import Visibility from "@mui/icons-material/Visibility";
 import VisibilityOff from "@mui/icons-material/VisibilityOff";
