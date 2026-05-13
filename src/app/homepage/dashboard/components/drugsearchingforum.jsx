@@ -64,6 +64,7 @@ export default function drugsearchingforum () {
     return () => clearTimeout(timer);
   }, [searchInput]);
 
+  // Fetch drugs whenever page, rowsPerPage, or search changes
   useEffect(() => {
     const fetchDrugs = async () => {
       const response = await axios.get(`http://localhost:5000/api/drugs`, {
